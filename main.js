@@ -16,6 +16,33 @@ window.onclick = function (event) {
     }
 }
 
+// Check validity of form 
+function checkValidity() {
+    const title = document.getElementById('title');
+    const author = document.getElementById('author');
+    const pages = document.getElementById('pages');
+
+    if (errorCheck(title) === false || errorCheck(author) === false || errorCheck(pages) === false) {
+        return false;
+    }
+    
+    return true;
+
+};
+
+function errorCheck(section) {
+    if(section.validity.valueMissing) {
+        section.setCustomValidity("Please provide input");
+        section.reportValidity();
+        return false;
+    } else {
+        section.setCustomValidity("");
+        return true;
+    }
+}
+
+
+
 function closeInputForm () {
     modal.style.display = "none"; 
     document.getElementById("title").value = "";
@@ -25,11 +52,13 @@ function closeInputForm () {
 }
 
 // Add book to library
-function newBook(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
+class newBook {
+    constructor (title, author, pages, read) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read
+    }    
 };
 
 function isRead() {
@@ -132,13 +161,20 @@ function enableReadButton () {
 const submitButton = document.getElementById("submit-button");
 submitButton.addEventListener ('click', () => {
     event.preventDefault();
+    submit();
+});
+
+function submit() {
+    if (checkValidity() === false) {
+        return false;
+    }
     addBookToLibrary();
     displayLibrary();
     closeInputForm ();
     enableRemovalButton();
     enableReadButton ();
-});
-
+    return true;
+}
 
 
 

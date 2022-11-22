@@ -119,3 +119,18 @@ body {
 .green-button {
     background-color: rgb(149, 240, 149);
 }
+
+input {
+    border: 1px solid grey;
+    border-radius: 4px;
+}
+
+input:invalid {
+    background: rgb(247, 228, 228);
+    border: solid 1px red;
+}
+
+input:valid {
+    background: rgb(228, 245, 203);
+    border: solid 1px green;
+}
